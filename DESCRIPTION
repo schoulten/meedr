@@ -1,5 +1,5 @@
 Package: expectations
-Title: What the Package Does (One Line, Title Case)
+Title: Quick and easy access to market expectations for economic indicators from Focus/BCB
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Fernando",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "fernando@fortietwo.com",
            comment = c(ORCID = "0000-0002-7491-6930"))
-Description: What the package does (one paragraph).
+Description: This package provides quick and easy access to the data and statistics of market expectations regarding the economic indicators of the Focus report of the Central Bank of Brazil, through the Expectations System API. This data comes from several financial institutions, such as: banks, brokers, funds, consultancies, etc. The expectations package offers an R interface to the API and other advantages, such as using a caching system with the memoise package and the option to use all the machine's cores (parallel computing).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
