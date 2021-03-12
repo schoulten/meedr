@@ -1,2 +1,7 @@
 ^expectations\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^cache_bcb$
+^cran-comments\.md$
+^README\.Rmd$
+^\.github$
