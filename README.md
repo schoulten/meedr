@@ -1,20 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# expectations <img src='man/figures/logo.png' align="right" height="139" />
+# meedr <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of **expectations** is to provide quick and easy access to
-market expectations data to the main macroeconomic indicators in the
-Focus report, made available by the **Central Bank of Brazil** through
-the Expectations System data
+The goal of **meedr** is to provide quick and easy access to market
+expectations data to the main macroeconomic indicators in the Focus
+report, made available by the **Central Bank of Brazil** through the
+Expectations System data
 [API](https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/aplicacao#!/recursos).
 This data comes from several financial institutions, such as: banks,
 brokers, funds, consultancies, etc.
 
-The **expectations** package offers an R interface to the API and other
+The **meedr** package offers an R interface to the API and other
 advantages:
 
 -   Use of a caching system with package `memoise` to speed up repeated
@@ -25,10 +25,10 @@ advantages:
 ## Installation
 
 <!--
-You can install the released version of expectations from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of meedr from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("expectations")
+install.packages("meedr")
 ```
 -->
 
@@ -36,7 +36,7 @@ You can install the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("schoulten/expectations")
+devtools::install_github("schoulten/meedr")
 ```
 
 ## Features
@@ -60,10 +60,10 @@ These are some basic examples of using the package:
 ### get\_monthly()
 
 ``` r
-library(expectations)
+library(meedr)
 
 # Monthly market expectations for IPCA indicator
-expectations::get_monthly(
+meedr::get_monthly(
   indicator      = "IPCA",
   first_date     = Sys.Date()-30,
   reference_date = format(Sys.Date(), "%m/%Y"),
@@ -75,7 +75,7 @@ expectations::get_monthly(
 
 ``` r
 # Quarterly market expectations for GDP indicator
-expectations::get_quarterly(
+meedr::get_quarterly(
   indicator      = "PIB Total",
   first_date     = "2021-01-01",
   reference_date = paste0(lubridate::quarter(Sys.Date()), "/", lubridate::year(Sys.Date())),
@@ -87,7 +87,7 @@ expectations::get_quarterly(
 
 ``` r
 # Annual market expectations for SELIC and exchange rate (BRL) indicator
-expectations::get_annual(
+meedr::get_annual(
   indicator      = c("Meta para taxa over-selic", "Taxa de câmbio"),
   reference_date = format(Sys.Date(), "%Y"),
   be_quiet       = TRUE
@@ -100,7 +100,7 @@ expectations::get_annual(
 # Inflation over the next 12 months
 # First, and a suggestion, run this for using parallel computing:
 future::plan(future::multisession, workers = floor(future::availableCores()/2))
-expectations::get_inflation_12m(
+meedr::get_inflation_12m(
   indicator   = c("IGP-DI", "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-FIPE"),
   smoothed    = "yes",
   be_quiet    = FALSE, # display messages
@@ -112,7 +112,7 @@ expectations::get_inflation_12m(
 
 ``` r
 # Monthly market expectations for IGP-M indicator (Top 5 Focus)
-expectations::get_monthly_top5(
+meedr::get_monthly_top5(
   indicator  = "IGP-M",
   first_date = NULL, # get all data to current date
   calc_type  = "long",
@@ -124,7 +124,7 @@ expectations::get_monthly_top5(
 
 ``` r
 # Annual market expectations for SELIC indicator (Top 5 Focus)
-expectations::get_annual_top5(
+meedr::get_annual_top5(
   indicator   = "Meta para taxa over-selic",
   detail      = "Fim do ano",
   be_quiet    = TRUE,
