@@ -5,8 +5,11 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/schoulten/meedr/workflows/R-CMD-check/badge.svg)](https://github.com/schoulten/meedr/actions)
 [![Travis build
 status](https://travis-ci.com/schoulten/meedr.svg?branch=main)](https://travis-ci.com/schoulten/meedr)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/schoulten/meedr?branch=main&svg=true)](https://ci.appveyor.com/project/schoulten/meedr)
 <!-- badges: end -->
 
 The goal of **meedr** is to provide quick and easy access to market

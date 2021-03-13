@@ -5,3 +5,5 @@
 ^README\.Rmd$
 ^\.github$
 ^\.travis\.yml$
+^cran-comments\.md$
+^appveyor\.yml$

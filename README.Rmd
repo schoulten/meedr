@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 # meedr <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/schoulten/meedr/workflows/R-CMD-check/badge.svg)](https://github.com/schoulten/meedr/actions)
 [![Travis build status](https://travis-ci.com/schoulten/meedr.svg?branch=main)](https://travis-ci.com/schoulten/meedr)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/schoulten/meedr?branch=main&svg=true)](https://ci.appveyor.com/project/schoulten/meedr)
 <!-- badges: end -->
 
 The goal of **meedr** is to provide quick and easy access to market expectations data to the main macroeconomic indicators in the Focus report, made available by the **Central Bank of Brazil** through the Expectations System data [API](https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/aplicacao#!/recursos). This data comes from several financial institutions, such as: banks, brokers, funds, consultancies, etc.
