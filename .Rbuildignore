@@ -4,3 +4,4 @@
 ^cache_bcb$
 ^README\.Rmd$
 ^\.github$
+^\.travis\.yml$

@@ -4,6 +4,9 @@
 # meedr <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
+
+[![Travis build
+status](https://travis-ci.com/schoulten/meedr.svg?branch=main)](https://travis-ci.com/schoulten/meedr)
 <!-- badges: end -->
 
 The goal of **meedr** is to provide quick and easy access to market
