@@ -1,10 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# expectations
+# expectations <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of **expectations** is to provide quick and easy access to
@@ -18,9 +17,9 @@ brokers, funds, consultancies, etc.
 The **expectations** package offers an R interface to the API and other
 advantages:
 
-  - Use of a caching system with package `memoise` to speed up repeated
+-   Use of a caching system with package `memoise` to speed up repeated
     requests of data;
-  - User can utilize all cores of the machine (parallel computing) when
+-   User can utilize all cores of the machine (parallel computing) when
     fetching a large batch of time series.
 
 ## Installation
@@ -42,16 +41,16 @@ devtools::install_github("schoulten/expectations")
 
 ## Features
 
-  - [get\_monthly()](#get_monthly): Get data on monthly market
+-   [get\_monthly()](#get_monthly): Get data on monthly market
     expectations
-  - [get\_quarterly()](#get_quarterly): Get data on quarterly market
+-   [get\_quarterly()](#get_quarterly): Get data on quarterly market
     expectations
-  - [get\_annual()](#get_annual): Get data on annual market expectations
-  - [get\_inflation\_12m()](#get_inflation_12m): Get data on market
+-   [get\_annual()](#get_annual): Get data on annual market expectations
+-   [get\_inflation\_12m()](#get_inflation_12m): Get data on market
     expectations for inflation over the next 12 months
-  - [get\_monthly\_top5()](#get_monthly_top5): Get data on monthly
+-   [get\_monthly\_top5()](#get_monthly_top5): Get data on monthly
     market expectations for the Top 5 indicators
-  - [get\_annual\_top5()](#get_annual_top5): Get data on annual market
+-   [get\_annual\_top5()](#get_annual_top5): Get data on annual market
     expectations for the Top 5 indicators
 
 ## Example
