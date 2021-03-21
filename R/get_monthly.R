@@ -134,11 +134,9 @@ get_monthly <- function (
       silent = TRUE
     )
   } else {
-    formals_parallel <- formals(future::plan())
-    used_workers <- formals_parallel$workers
+    used_workers <- future::nbrOfWorkers()
     available_cores <- future::availableCores()
-    msg <- utils::capture.output(future::plan())
-    flag <- grepl("sequential", msg)[1]
+    flag <- inherits(future::plan(), "sequential")
     if (flag) {
       stop(paste0(
         "When using do_parallel = TRUE, you need to call future::plan() to configure your parallel settings.\n",
