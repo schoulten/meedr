@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/meedr)](https://CRAN.R-project.org/package=meedr)
 [![R-CMD-check](https://github.com/schoulten/meedr/workflows/R-CMD-check/badge.svg)](https://github.com/schoulten/meedr/actions)
 [![Travis build
 status](https://travis-ci.com/schoulten/meedr.svg?branch=main)](https://travis-ci.com/schoulten/meedr)
@@ -30,13 +32,12 @@ advantages:
 
 ## Installation
 
-<!--
-You can install the released version of meedr from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of meedr from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("meedr")
 ```
--->
 
 You can install the development version from GitHub with:
 
