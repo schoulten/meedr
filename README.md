@@ -12,6 +12,8 @@ status](https://www.r-pkg.org/badges/version/meedr)](https://CRAN.R-project.org/
 status](https://travis-ci.com/schoulten/meedr.svg?branch=main)](https://travis-ci.com/schoulten/meedr)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/schoulten/meedr?branch=main&svg=true)](https://ci.appveyor.com/project/schoulten/meedr)
+[![CRAN
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/meedr?color=green)](https://cran.r-project.org/package=meedr)
 <!-- badges: end -->
 
 The goal of **meedr** is to provide quick and easy access to market
