@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-7491-6930"))
 Description: Provides quick and easy access to market expectations data to the main macroeconomic indicators in the Focus report, made available by the Central Bank of Brazil through the Expectations System data API <https://dadosabertos.bcb.gov.br/>. This package offers an R interface to the API and other advantages, such as using a caching system and the option to use all the machine's cores (parallel computing).
 License: MIT + file LICENSE
-URL: https://github.com/schoulten/meedr
+URL: https://fortietwo.com/meedr/, https://github.com/schoulten/meedr
 BugReports: https://github.com/schoulten/meedr/issues
 Encoding: UTF-8
 LazyData: true

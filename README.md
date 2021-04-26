@@ -32,6 +32,9 @@ advantages:
 -   User can utilize all cores of the machine (parallel computing) when
     fetching a large batch of time series.
 
+Check the [meedr pkgdown page](https://fortietwo.com/meedr/) for more
+general information ;)
+
 ## Installation
 
 You can install the released version of meedr from
