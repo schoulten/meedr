@@ -8,3 +8,6 @@
 ^cran-comments\.md$
 ^appveyor\.yml$
 ^CRAN-RELEASE$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
