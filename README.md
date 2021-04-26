@@ -35,13 +35,14 @@ advantages:
 ## Installation
 
 You can install the released version of meedr from
-[CRAN](https://CRAN.R-project.org) with:
+[CRAN](https://cran.r-project.org/package=meedr) with:
 
 ``` r
 install.packages("meedr")
 ```
 
-You can install the development version from GitHub with:
+You can install the development version from
+[GitHub](https://github.com/schoulten/meedr) with:
 
 ``` r
 # install.packages("devtools")
@@ -70,14 +71,26 @@ These are some basic examples of using the package:
 
 ``` r
 library(meedr)
+library(dplyr)
 
 # Monthly market expectations for IPCA indicator
-meedr::get_monthly(
+ipca <- meedr::get_monthly(
   indicator      = "IPCA",
   first_date     = Sys.Date()-30,
   reference_date = format(Sys.Date(), "%m/%Y"),
   be_quiet       = TRUE
   )
+
+head(ipca, 5)
+#> # A tibble: 5 x 11
+#>   indicator date       reference_date  mean median    sd coef_var   min   max
+#>   <chr>     <date>     <chr>          <dbl>  <dbl> <dbl>    <dbl> <dbl> <dbl>
+#> 1 IPCA      2021-04-23 04/2021         0.39   0.38  0.1      25.6  0.18  0.74
+#> 2 IPCA      2021-04-23 04/2021         0.38   0.35  0.09     23.7  0.18  0.74
+#> 3 IPCA      2021-04-22 04/2021         0.42   0.41  0.11     26.2  0.2   0.74
+#> 4 IPCA      2021-04-22 04/2021         0.42   0.4   0.1      23.8  0.24  0.74
+#> 5 IPCA      2021-04-20 04/2021         0.42   0.42  0.11     26.2  0.2   0.74
+#> # ... with 2 more variables: n_respondents <int>, basis <int>
 ```
 
 ### get\_quarterly()
@@ -140,3 +153,10 @@ meedr::get_annual_top5(
   use_memoise = FALSE # disable caching system
   )
 ```
+
+## Related works
+
+Check out some similar works:
+
+-   [rbcb](https://github.com/wilsonfreitas/rbcb): R interface to
+    Brazilian Central Bank web services by @wilsonfreitas

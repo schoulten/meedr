@@ -35,13 +35,13 @@ The **meedr** package offers an R interface to the API and other advantages:
 ## Installation
 
 
-You can install the released version of meedr from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of meedr from [CRAN](https://cran.r-project.org/package=meedr) with:
 
 ``` r
 install.packages("meedr")
 ```
 
-You can install the development version from GitHub with:
+You can install the development version from [GitHub](https://github.com/schoulten/meedr) with:
 
 ```r
 # install.packages("devtools")
@@ -63,16 +63,19 @@ These are some basic examples of using the package:
 
 ### get_monthly(){#get_monthly}
 
-```r
+```{r, message=FALSE, warning=FALSE}
 library(meedr)
+library(dplyr)
 
 # Monthly market expectations for IPCA indicator
-meedr::get_monthly(
+ipca <- meedr::get_monthly(
   indicator      = "IPCA",
   first_date     = Sys.Date()-30,
   reference_date = format(Sys.Date(), "%m/%Y"),
   be_quiet       = TRUE
   )
+
+head(ipca, 5)
 ```
 
 ### get_quarterly(){#get_quarterly}
@@ -135,3 +138,9 @@ meedr::get_annual_top5(
   use_memoise = FALSE # disable caching system
   )
 ```
+
+## Related works
+
+Check out some similar works:
+
+- [rbcb](https://github.com/wilsonfreitas/rbcb): R interface to Brazilian Central Bank web services by @wilsonfreitas
