@@ -179,7 +179,7 @@ get_quarterly <- function (
   df <- dplyr::rename_with(
     dplyr::as_tibble(df),
     ~c("indicator", "date", "reference_date", "mean", "median",
-       "sd","coef_var", "min", "max", "n_respondents")
+       "sd","coef_var", "min", "max", "n_respondents", "basis")
   )
   df <- dplyr::mutate(df, date = as.Date(date, format = "%Y-%m-%d"))
 
