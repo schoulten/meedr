@@ -119,6 +119,11 @@ get_quarterly <- function (
     cache_dir   = memoise::cache_filesystem("./cache_bcb")
   )
 
+  resp <- httr::GET(odata_url[[1]])
+  if (httr::http_type(resp) != "application/json") {
+    stop("BCB-Olinda API did not return json.", call. = FALSE)
+  }
+
   if (!do_parallel) {
 
     if (be_quiet) {message("", appendLF = FALSE)} else {
@@ -162,8 +167,7 @@ get_quarterly <- function (
     stop("\nError in fetching data: ", conditionMessage(attr(df, "condition")),
          call. = FALSE
     )
-  } else if
-  (purrr::is_empty(df)) {
+  } else if (purrr::is_empty(df)) {
     stop(
       paste0(
         "\nIt seems that there is no data available. Possibly, the last available data is earlier than that defined in one of these arguments:
@@ -171,10 +175,12 @@ get_quarterly <- function (
       ),
       call. = FALSE
     )
-  } else if
-  (be_quiet) {message("", appendLF = FALSE)}
-  else
-    message(paste0("\nFound ", nrow(df), " observations!\n"), appendLF = FALSE)
+  } else if (be_quiet) {
+    message("", appendLF = FALSE)
+    } else message(
+      paste0("\nFound ", nrow(df), " observations!\n"),
+      appendLF = FALSE
+      )
 
   df <- dplyr::rename_with(
     dplyr::as_tibble(df),
