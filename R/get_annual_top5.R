@@ -171,6 +171,11 @@ get_annual_top5 <- function (
     cache_dir   = memoise::cache_filesystem("./cache_bcb")
   )
 
+  resp <- httr::GET(odata_url[[1]])
+  if (httr::http_type(resp) != "application/json") {
+    stop("BCB-Olinda API did not return json.", call. = FALSE)
+  }
+
   if (!do_parallel) {
 
     if (be_quiet) {message("", appendLF = FALSE)} else {
