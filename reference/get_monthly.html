@@ -185,12 +185,13 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>get_monthly</span><span class='op'>(</span>
   indicator <span class='op'>=</span> <span class='st'>"IPCA"</span>,
+  first_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>30</span>,
   reference_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"%m/%Y"</span><span class='op'>)</span>,
   use_memoise <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Fetching [IPCA] data from BCB-Olinda... </span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Found 710 observations!</span></div></pre>
+#&gt; <span class='message'>Found 40 observations!</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

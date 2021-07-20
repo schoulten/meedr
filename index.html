@@ -82,7 +82,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <strong>meedr</strong> is to provide quick and easy access to market expectations data to the main macroeconomic indicators in the Focus report, made available by the <strong>Central Bank of Brazil</strong> through the Expectations System data <a href="https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/aplicacao#!/recursos">API</a>. This data comes from several financial institutions, such as: banks, brokers, funds, consultancies, etc.</p>
+<p>The goal of <strong>meedr</strong> is to provide quick and easy access to market expectations data to the main macroeconomic indicators in the Focus report, made available by the <strong>Central Bank of Brazil</strong> through the Expectations System data <a href="https://dadosabertos.bcb.gov.br/">API</a>. This data comes from several financial institutions, such as: banks, brokers, funds, consultancies, etc.</p>
 <p>The <strong>meedr</strong> package offers an R interface to the API and other advantages:</p>
 <ul>
 <li>Use of a caching system with package <code>memoise</code> to speed up repeated requests of data;</li>
@@ -127,7 +127,6 @@
 <a href="#get_monthly" class="anchor"></a>get_monthly()</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://fortietwo.com/meedr/">meedr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
 <span class="co"># Monthly market expectations for IPCA indicator</span>
 <span class="va">ipca</span> <span class="op">&lt;-</span> <span class="fu">meedr</span><span class="fu">::</span><span class="fu"><a href="reference/get_monthly.html">get_monthly</a></span><span class="op">(</span>
@@ -141,11 +140,11 @@
 <span class="co">#&gt; # A tibble: 5 x 11</span>
 <span class="co">#&gt;   indicator date       reference_date  mean median    sd coef_var   min   max</span>
 <span class="co">#&gt;   &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 IPCA      2021-04-23 04/2021         0.39   0.38  0.1      25.6  0.18  0.74</span>
-<span class="co">#&gt; 2 IPCA      2021-04-23 04/2021         0.38   0.35  0.09     23.7  0.18  0.74</span>
-<span class="co">#&gt; 3 IPCA      2021-04-22 04/2021         0.42   0.41  0.11     26.2  0.2   0.74</span>
-<span class="co">#&gt; 4 IPCA      2021-04-22 04/2021         0.42   0.4   0.1      23.8  0.24  0.74</span>
-<span class="co">#&gt; 5 IPCA      2021-04-20 04/2021         0.42   0.42  0.11     26.2  0.2   0.74</span>
+<span class="co">#&gt; 1 IPCA      2021-07-16 07/2021         0.66   0.71  0.17     26.3  0.13  0.94</span>
+<span class="co">#&gt; 2 IPCA      2021-07-16 07/2021         0.72   0.77  0.15     20.3  0.13  0.93</span>
+<span class="co">#&gt; 3 IPCA      2021-07-15 07/2021         0.65   0.7   0.18     27.5  0.13  0.94</span>
+<span class="co">#&gt; 4 IPCA      2021-07-15 07/2021         0.72   0.77  0.15     21.2  0.13  0.94</span>
+<span class="co">#&gt; 5 IPCA      2021-07-14 07/2021         0.64   0.68  0.18     28.4  0.13  0.94</span>
 <span class="co">#&gt; # ... with 2 more variables: n_respondents &lt;int&gt;, basis &lt;int&gt;</span></code></pre></div>
 </div>
 <div id="get_quarterly" class="section level3">
