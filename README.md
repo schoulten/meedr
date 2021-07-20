@@ -19,10 +19,9 @@ downloads](http://cranlogs.r-pkg.org/badges/grand-total/meedr?color=green)](http
 The goal of **meedr** is to provide quick and easy access to market
 expectations data to the main macroeconomic indicators in the Focus
 report, made available by the **Central Bank of Brazil** through the
-Expectations System data
-[API](https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/aplicacao#!/recursos).
-This data comes from several financial institutions, such as: banks,
-brokers, funds, consultancies, etc.
+Expectations System data [API](https://dadosabertos.bcb.gov.br/). This
+data comes from several financial institutions, such as: banks, brokers,
+funds, consultancies, etc.
 
 The **meedr** package offers an R interface to the API and other
 advantages:
@@ -74,7 +73,6 @@ These are some basic examples of using the package:
 
 ``` r
 library(meedr)
-library(dplyr)
 
 # Monthly market expectations for IPCA indicator
 ipca <- meedr::get_monthly(
@@ -88,11 +86,11 @@ head(ipca, 5)
 #> # A tibble: 5 x 11
 #>   indicator date       reference_date  mean median    sd coef_var   min   max
 #>   <chr>     <date>     <chr>          <dbl>  <dbl> <dbl>    <dbl> <dbl> <dbl>
-#> 1 IPCA      2021-04-23 04/2021         0.39   0.38  0.1      25.6  0.18  0.74
-#> 2 IPCA      2021-04-23 04/2021         0.38   0.35  0.09     23.7  0.18  0.74
-#> 3 IPCA      2021-04-22 04/2021         0.42   0.41  0.11     26.2  0.2   0.74
-#> 4 IPCA      2021-04-22 04/2021         0.42   0.4   0.1      23.8  0.24  0.74
-#> 5 IPCA      2021-04-20 04/2021         0.42   0.42  0.11     26.2  0.2   0.74
+#> 1 IPCA      2021-07-16 07/2021         0.66   0.71  0.17     26.3  0.13  0.94
+#> 2 IPCA      2021-07-16 07/2021         0.72   0.77  0.15     20.3  0.13  0.93
+#> 3 IPCA      2021-07-15 07/2021         0.65   0.7   0.18     27.5  0.13  0.94
+#> 4 IPCA      2021-07-15 07/2021         0.72   0.77  0.15     21.2  0.13  0.94
+#> 5 IPCA      2021-07-14 07/2021         0.64   0.68  0.18     28.4  0.13  0.94
 #> # ... with 2 more variables: n_respondents <int>, basis <int>
 ```
 

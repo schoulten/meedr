@@ -54,6 +54,7 @@ Possible values for calc_type argument: "short", "medium" or "long".
 \examples{
 df <- get_annual_top5(
   indicator = "IPCA",
+  first_date = Sys.Date() - 30,
   reference_date = format(Sys.Date(), "\%Y"),
   use_memoise = FALSE
 )

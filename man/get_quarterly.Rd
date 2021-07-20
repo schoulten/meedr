@@ -44,6 +44,7 @@ Possible values for indicator argument: "PIB Agropecuária", "PIB Industrial", "
 \examples{
 df <- get_quarterly(
   indicator = "PIB Total",
+  first_date = Sys.Date() - 30,
   reference_date = paste0(lubridate::quarter(Sys.Date()), "/",
                           lubridate::year(Sys.Date())
                           ),

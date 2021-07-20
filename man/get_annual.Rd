@@ -49,6 +49,7 @@ Possible values for detail argument: if indicator "Balança Comercial" -> "Expor
 \examples{
 df <- get_annual(
   indicator = "IPCA",
+  first_date = Sys.Date() - 30,
   reference_date = format(Sys.Date(), "\%Y"),
   use_memoise = FALSE
 )

@@ -44,6 +44,7 @@ Possible values for indicator argument: "IGP-DI", "IGP-M", "INPC", "IPA-DI", "IP
 \examples{
 df <- get_inflation_12m(
   indicator = "IPCA",
+  first_date = Sys.Date() - 30,
   smoothed = "yes",
   use_memoise = FALSE
 )

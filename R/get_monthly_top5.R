@@ -23,6 +23,7 @@
 #' @examples
 #' df <- get_monthly_top5(
 #'   indicator = "IPCA",
+#'   first_date = Sys.Date() - 30,
 #'   reference_date = format(Sys.Date(), "%m/%Y"),
 #'   use_memoise = FALSE
 #' )

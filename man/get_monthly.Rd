@@ -44,6 +44,7 @@ Possible values for indicator argument: "IGP-DI", "IGP-M", "INPC", "IPA-DI", "IP
 \examples{
 df <- get_monthly(
   indicator = "IPCA",
+  first_date = Sys.Date() - 30,
   reference_date = format(Sys.Date(), "\%m/\%Y"),
   use_memoise = FALSE
 )

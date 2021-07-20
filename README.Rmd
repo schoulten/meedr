@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/meedr?color=green)](https://cran.r-project.org/package=meedr)
 <!-- badges: end -->
 
-The goal of **meedr** is to provide quick and easy access to market expectations data to the main macroeconomic indicators in the Focus report, made available by the **Central Bank of Brazil** through the Expectations System data [API](https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/aplicacao#!/recursos). This data comes from several financial institutions, such as: banks, brokers, funds, consultancies, etc.
+The goal of **meedr** is to provide quick and easy access to market expectations data to the main macroeconomic indicators in the Focus report, made available by the **Central Bank of Brazil** through the Expectations System data [API](https://dadosabertos.bcb.gov.br/). This data comes from several financial institutions, such as: banks, brokers, funds, consultancies, etc.
 
 The **meedr** package offers an R interface to the API and other advantages:
 
@@ -67,7 +67,6 @@ These are some basic examples of using the package:
 
 ```{r, message=FALSE, warning=FALSE}
 library(meedr)
-library(dplyr)
 
 # Monthly market expectations for IPCA indicator
 ipca <- meedr::get_monthly(
