@@ -23,6 +23,10 @@ Expectations System data [API](https://dadosabertos.bcb.gov.br/). This
 data comes from several financial institutions, such as: banks, brokers,
 funds, consultancies, etc.
 
+**Warning**: This package was definitively archived by CRAN on July 22,
+2021 and is only available in this repository. Despite this, maintenance
+and bug fixes will continue to be done.
+
 The **meedr** package offers an R interface to the API and other
 advantages:
 
@@ -86,11 +90,11 @@ head(ipca, 5)
 #> # A tibble: 5 x 11
 #>   indicator date       reference_date  mean median    sd coef_var   min   max
 #>   <chr>     <date>     <chr>          <dbl>  <dbl> <dbl>    <dbl> <dbl> <dbl>
-#> 1 IPCA      2021-07-16 07/2021         0.66   0.71  0.17     26.3  0.13  0.94
-#> 2 IPCA      2021-07-16 07/2021         0.72   0.77  0.15     20.3  0.13  0.93
-#> 3 IPCA      2021-07-15 07/2021         0.65   0.7   0.18     27.5  0.13  0.94
-#> 4 IPCA      2021-07-15 07/2021         0.72   0.77  0.15     21.2  0.13  0.94
-#> 5 IPCA      2021-07-14 07/2021         0.64   0.68  0.18     28.4  0.13  0.94
+#> 1 IPCA      2021-07-30 08/2021         0.43   0.44  0.11     26.0  0.06  0.68
+#> 2 IPCA      2021-07-30 08/2021         0.46   0.46  0.09     19.8  0.23  0.68
+#> 3 IPCA      2021-07-29 08/2021         0.42   0.41  0.12     27.9  0.06  0.79
+#> 4 IPCA      2021-07-29 08/2021         0.44   0.43  0.1      23.0  0.23  0.79
+#> 5 IPCA      2021-07-28 08/2021         0.41   0.41  0.12     28.6  0.06  0.79
 #> # ... with 2 more variables: n_respondents <int>, basis <int>
 ```
 

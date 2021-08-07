@@ -27,6 +27,8 @@ knitr::opts_chunk$set(
 
 The goal of **meedr** is to provide quick and easy access to market expectations data to the main macroeconomic indicators in the Focus report, made available by the **Central Bank of Brazil** through the Expectations System data [API](https://dadosabertos.bcb.gov.br/). This data comes from several financial institutions, such as: banks, brokers, funds, consultancies, etc.
 
+**Warning**: This package was definitively archived by CRAN on July 22, 2021 and is only available in this repository. Despite this, maintenance and bug fixes will continue to be done.
+
 The **meedr** package offers an R interface to the API and other advantages:
 
 - Use of a caching system with package `memoise` to speed up repeated requests of data;
