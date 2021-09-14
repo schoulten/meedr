@@ -13,9 +13,10 @@
 #' @description This function provides the extraction of data and statistics related to the expectations of economic indicators, specifically the annual market expectations, made available by the Central Bank of Brazil's Expectations System through the Olinda API. The data comes from several financial institutions: banks, funds, research houses, etc. Important: arguments are case sensitive.
 #' @details For periods for which there are no statistics, they will be omitted from the query.
 #'
-#' Possible values for indicator argument: "Balança Comercial", "Balanço de Pagamentos", "Fiscal", "IGP-DI", "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-FIPE", "Preços administrados por contrato e monitorados", "Produção industrial", "PIB Agropecuária", "PIB Industrial", "PIB Serviços", "PIB Total", "Meta para taxa over-selic", "Taxa de câmbio".
+#' Possible values for indicator argument: 'Balança comercial', 'Conta corrente', 'Investimento direto no país', 'Dívida bruta do governo geral', 'Dívida líquida do setor público', 'Resultado primário', 'Resultado nominal', 'IGP-DI', 'IGP-M', 'INPC', 'IPA-DI', 'IPA-M', 'IPCA', 'IPCA-15', 'IPC-Fipe', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Produção industrial', 'PIB Agropecuária', 'PIB Indústria', 'PIB Serviços', 'PIB Total', 'PIB Despesa de consumo da administração pública', 'PIB Despesa de consumo das famílias', 'PIB Exportação de bens e serviços', 'PIB Formação Bruta de Capital Fixo', 'PIB Importação de bens e serviços', 'Taxa de desocupação', 'Selic', 'Câmbio'.
 #'
-#' Possible values for detail argument: if indicator "Balança Comercial" -> "Exportações", "Importações", "Saldo"; if indicator "Balanço de Pagamentos" -> "Conta corrente", "Investimento direto no país"; if indicator "Fiscal" -> "Resultado Primário", "Resultado Nominal", "Dívida líquida do setor público"; if indicator "Meta para taxa over-selic" -> "Fim do ano", "Média do ano".
+#' Possible values for detail argument: if indicator "Balança comercial" -> "Exportações", "Importações", "Saldo".
+#'
 #' @author Fernando da Silva <<fernando@fortietwo.com>>
 #' @encoding UTF-8
 #' @export
@@ -27,7 +28,7 @@
 #'   reference_date = format(Sys.Date(), "%Y"),
 #'   use_memoise = FALSE
 #' )
-get_annual <- function (
+get_annual <- function(
   indicator      = NULL,
   detail         = NULL,
   first_date     = Sys.Date() - 2*365,
@@ -38,25 +39,55 @@ get_annual <- function (
   do_parallel    = FALSE
   ){
   valid_indicator <- c(
-    "Balan\u00e7a Comercial", "Balan\u00e7o de Pagamentos", "Fiscal", "IGP-DI",
-    "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-FIPE",
-    "Pre\u00e7os administrados por contrato e monitorados", "Produ\u00e7\u00e3o industrial",
-    "PIB Agropecu\u00e1ria", "PIB Industrial", "PIB Servi\u00e7os", "PIB Total",
-    "Meta para taxa over-selic", "Taxa de c\u00e2mbio"
-  )
+    # Externo
+    "Balan\u00e7a comercial",
+    "Conta corrente",
+    "Investimento direto no pa\u00eds",
+    # Fiscal
+    "D\u00edvida bruta do governo geral",
+    "D\u00edvida l\u00edquida do setor p\u00fablico",
+    "Resultado prim\u00e1rio",
+    "Resultado nominal",
+    # Índices de preços
+    "IGP-DI",
+    "IGP-M",
+    "INPC",
+    "IPA-DI",
+    "IPA-M",
+    "IPCA",
+    "IPCA-15",
+    "IPC-Fipe",
+    "IPCA Administrados",
+    "IPCA Alimenta\u00e7\u00e3o no domic\u00edlio",
+    "IPCA Bens industrializados",
+    "IPCA Livres",
+    "IPCA Servi\u00e7os",
+    # Atividade
+    "Produ\u00e7\u00e3o industrial",
+    "PIB Agropecu\u00e1ria",
+    "PIB Ind\u00fastria",
+    "PIB Servi\u00e7os",
+    "PIB Total",
+    "PIB Despesa de consumo da administra\u00e7\u00e3o p\u00fablica",
+    "PIB Despesa de consumo das fam\u00edlias",
+    "PIB Exporta\u00e7\u00e3o de bens e servi\u00e7os",
+    "PIB Forma\u00e7\u00e3o Bruta de Capital Fixo",
+    "PIB Importa\u00e7\u00e3o de bens e servi\u00e7os",
+    "Taxa de desocupa\u00e7\u00e3o",
+    # Taxas
+    "Selic",
+    "C\u00e2mbio"
+    )
 
   if (missing(indicator) | !all(indicator %in% valid_indicator) | is.null(indicator)) {
     stop("\nArgument 'indicator' is not valid or missing. Check your inputs.", call. = FALSE)
-  } else indicator
+  }
 
   valid_detail <- c(
-    "Balan\u00e7a Comercial / Exporta\u00e7\u00f5es", "Balan\u00e7a Comercial / Importa\u00e7\u00f5es",
-    "Balan\u00e7a Comercial / Saldo", "Balan\u00e7o de Pagamentos / Conta corrente",
-    "Balan\u00e7o de Pagamentos / Investimento direto no pa\u00eds",
-    "Fiscal / Resultado Prim\u00e1rio", "Fiscal / Resultado Nominal",
-    "Fiscal / D\u00edvida l\u00edquida do setor p\u00fablico", "Meta para taxa over-selic / Fim do ano",
-    "Meta para taxa over-selic / M\u00e9dia do ano"
-  )
+    "Balan\u00e7a comercial / Exporta\u00e7\u00f5es",
+    "Balan\u00e7a comercial / Importa\u00e7\u00f5es",
+    "Balan\u00e7a comercial / Saldo"
+    )
 
   if (!is.null(detail) && !is.na(detail)) {
     if ((class(detail) != "character")) {
@@ -72,23 +103,21 @@ get_annual <- function (
   } else if
   ((length(detail) > 0) && is.na(detail)) {
     detail <- NULL
-  } else detail
+  }
 
   first_date <- try(as.Date(first_date), silent = TRUE)
   if (length(first_date) <= 0 || is.na(first_date)) {first_date = NULL}
   if (class(first_date) %in% "try-error") {
     stop("\nArgument 'first_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365} else
-    first_date
+  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365}
 
   last_date <- try(as.Date(last_date), silent = TRUE)
   if (length(last_date) <= 0 || is.na(last_date)) {last_date = NULL}
   if (class(last_date) %in% "try-error") {
     stop("\nArgument 'last_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365} else
-    last_date
+  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365}
 
   if ((length(first_date) > 0) && first_date > Sys.Date()) {
     stop("\nIt seems that 'first_date' > current date. Check your inputs.", call. = FALSE)
@@ -109,8 +138,7 @@ get_annual <- function (
     } else
       stop("\nArgument 'reference_date' is not valid. Check yout inputs.", call. = FALSE)
   } else if
-  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL} else
-    reference_date
+  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL}
 
   if ((class(do_parallel) != "logical") || (is.na(do_parallel))) {
     stop("\nArgument 'do_parallel' must be logical. Check your inputs.", call. = FALSE)
@@ -216,11 +244,26 @@ get_annual <- function (
   else
     message(paste0("\nFound ", nrow(df), " observations!\n"), appendLF = FALSE)
 
-  df <- dplyr::rename_with(
+  new_names <- c(
+    "indicator"      = "Indicador",
+    "detail"         = "IndicadorDetalhe",
+    "date"           = "Data",
+    "reference_date" = "DataReferencia",
+    "mean"           = "Media",
+    "median"         = "Mediana",
+    "sd"             = "DesvioPadrao",
+    "coef_var"       = "CoeficienteVariacao",
+    "min"            = "Minimo",
+    "max"            = "Maximo",
+    "n_respondents"  = "numeroRespondentes",
+    "basis"          = "baseCalculo"
+    )
+
+  df <- dplyr::rename(
     dplyr::as_tibble(df),
-    ~c("indicator", "detail", "date", "reference_date", "mean",
-       "median", "sd", "coef_var", "min", "max", "n_respondents", "basis")
-  )
+    dplyr::any_of(new_names)
+    )
+
   df <- dplyr::mutate(df, date = as.Date(date, format = "%Y-%m-%d"))
 
   return(df)
