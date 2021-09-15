@@ -12,7 +12,8 @@
 #' @description This function provides the extraction of data and statistics related to expectations of economic indicators, specifically the quarterly market expectations, made available by the Central Bank of Brazil's Expectations System through the Olinda API. The data comes from several financial institutions: banks, funds, research houses, etc. Important: arguments are case sensitive.
 #' @details For periods for which there are no statistics, they will be omitted from the query.
 #'
-#' Possible values for indicator argument: "PIB Agropecuária", "PIB Industrial", "PIB Serviços", "PIB Total".
+#' Possible values for indicator argument: 'IPCA', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Câmbio', 'PIB Agropecuária', 'PIB Indústria', 'PIB Serviços', 'PIB Total', 'Taxa de desocupação'.
+#'
 #' @author Fernando da Silva <<fernando@fortietwo.com>>
 #' @encoding UTF-8
 #' @export
@@ -35,27 +36,41 @@ get_quarterly <- function (
   use_memoise    = TRUE,
   do_parallel    = FALSE
 ){
-  valid_indicator <- c("PIB Agropecu\u00e1ria", "PIB Industrial", "PIB Servi\u00e7os", "PIB Total")
+  valid_indicator <- c(
+    # Índices de preços
+    "IPCA",
+    "IPCA Administrados",
+    "IPCA Alimenta\u00e7\u00e3o no domic\u00edlio",
+    "IPCA Bens industrializados",
+    "IPCA Livres",
+    "IPCA Servi\u00e7os",
+    # Taxas
+    "C\u00e2mbio",
+    # Atividade
+    "PIB Agropecu\u00e1ria",
+    "PIB Ind\u00fastria",
+    "PIB Servi\u00e7os",
+    "PIB Total",
+    "Taxa de desocupa\u00e7\u00e3o"
+    )
 
   if (missing(indicator) | !all(indicator %in% valid_indicator) | is.null(indicator)) {
     stop("\nArgument 'indicator' is not valid or missing. Check your inputs.", call. = FALSE)
-  } else indicator
+  }
 
   first_date <- try(as.Date(first_date), silent = TRUE)
   if (length(first_date) <= 0 || is.na(first_date)) {first_date = NULL}
   if (class(first_date) %in% "try-error") {
     stop("\nArgument 'first_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365} else
-    first_date
+  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365}
 
   last_date <- try(as.Date(last_date), silent = TRUE)
   if (length(last_date) <= 0 || is.na(last_date)) {last_date = NULL}
   if (class(last_date) %in% "try-error") {
     stop("\nArgument 'last_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365} else
-    last_date
+  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365}
 
   if ((length(first_date) > 0) && first_date > Sys.Date()) {
     stop("\nIt seems that 'first_date' > current date. Check your inputs.", call. = FALSE)
@@ -76,8 +91,7 @@ get_quarterly <- function (
     } else
       stop("\nArgument 'reference_date' is not valid. Check yout inputs.", call. = FALSE)
   } else if
-  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL} else
-    reference_date
+  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL}
 
   if ((class(do_parallel) != "logical") || (is.na(do_parallel))) {
     stop("\nArgument 'do_parallel' must be logical. Check your inputs.", call. = FALSE)
@@ -183,11 +197,26 @@ get_quarterly <- function (
       appendLF = FALSE
       )
 
-  df <- dplyr::rename_with(
-    dplyr::as_tibble(df),
-    ~c("indicator", "date", "reference_date", "mean", "median",
-       "sd","coef_var", "min", "max", "n_respondents", "basis")
+  new_names <- c(
+    "indicator"      = "Indicador",
+    "detail"         = "IndicadorDetalhe",
+    "date"           = "Data",
+    "reference_date" = "DataReferencia",
+    "mean"           = "Media",
+    "median"         = "Mediana",
+    "sd"             = "DesvioPadrao",
+    "coef_var"       = "CoeficienteVariacao",
+    "min"            = "Minimo",
+    "max"            = "Maximo",
+    "n_respondents"  = "numeroRespondentes",
+    "basis"          = "baseCalculo"
   )
+
+  df <- dplyr::rename(
+    dplyr::as_tibble(df),
+    dplyr::any_of(new_names)
+  )
+
   df <- dplyr::mutate(df, date = as.Date(date, format = "%Y-%m-%d"))
 
   return(df)

@@ -39,7 +39,7 @@ This function provides the extraction of data and statistics related to expectat
 \details{
 For periods for which there are no statistics, they will be omitted from the query.
 
-Possible values for indicator argument: "PIB Agropecuária", "PIB Industrial", "PIB Serviços", "PIB Total".
+Possible values for indicator argument: 'IPCA', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Câmbio', 'PIB Agropecuária', 'PIB Indústria', 'PIB Serviços', 'PIB Total', 'Taxa de desocupação'.
 }
 \examples{
 df <- get_quarterly(
