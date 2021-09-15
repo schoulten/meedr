@@ -13,9 +13,10 @@
 #' @description This function provides the extraction of data and statistics related to the expectations of economic indicators, specifically the monthly market expectations of the indicators of the Top 5 Focus ranking, made available by the Central Bank of Brazil's Expectations System through the Olinda API. The data comes from several financial institutions: banks, funds, research houses, etc. Important: arguments are case sensitive.
 #' @details For periods for which there are no statistics, they will be omitted from the query.
 #'
-#' Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Meta para taxa over-selic", "Taxa de câmbio".
+#' Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'IPCA', 'Selic', 'Câmbio'.
 #'
-#' Possible values for calc_type argument: "short", "medium" or "long".
+#' Possible values for calc_type argument: 'short', 'medium' or 'long'.
+#'
 #' @author Fernando da Silva <<fernando@fortietwo.com>>
 #' @encoding UTF-8
 #' @export
@@ -37,27 +38,31 @@ get_monthly_top5 <- function (
   use_memoise    = TRUE,
   do_parallel    = FALSE
 ){
-  valid_indicator <- c("IGP-DI", "IGP-M", "IPCA", "Meta para taxa over-selic", "Taxa de c\u00e2mbio")
+  valid_indicator <- c(
+    "IGP-DI",
+    "IGP-M",
+    "IPCA",
+    "Selic",
+    "C\u00e2mbio"
+    )
 
   if (missing(indicator) | !all(indicator %in% valid_indicator) | is.null(indicator)) {
     stop("\nArgument 'indicator' is not valid or missing. Check your inputs.", call. = FALSE)
-  } else indicator
+  }
 
   first_date <- try(as.Date(first_date), silent = TRUE)
   if (length(first_date) <= 0 || is.na(first_date)) {first_date = NULL}
   if (class(first_date) %in% "try-error") {
     stop("\nArgument 'first_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365} else
-    first_date
+  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365}
 
   last_date <- try(as.Date(last_date), silent = TRUE)
   if (length(last_date) <= 0 || is.na(last_date)) {last_date = NULL}
   if (class(last_date) %in% "try-error") {
     stop("\nArgument 'last_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365} else
-    last_date
+  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365}
 
   if ((length(first_date) > 0) && first_date > Sys.Date()) {
     stop("\nIt seems that 'first_date' > current date. Check your inputs.", call. = FALSE)
@@ -78,8 +83,7 @@ get_monthly_top5 <- function (
     } else
       stop("\nArgument 'reference_date' is not valid. Check yout inputs.", call. = FALSE)
   } else if
-  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL} else
-    reference_date
+  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL}
 
   if (!is.null(calc_type) && !is.na(calc_type) & length(calc_type) > 0) {
     if ((class(calc_type) != "character")) {
@@ -206,11 +210,27 @@ get_monthly_top5 <- function (
   else
     message(paste0("\nFound ", nrow(df), " observations!\n"), appendLF = FALSE)
 
-  df <- dplyr::rename_with(
-    dplyr::as_tibble(df),
-    ~c("indicator", "date", "reference_date", "calc_type",
-       "mean", "median", "sd","coef_var", "min", "max")
+  new_names <- c(
+    "indicator"      = "Indicador",
+    "detail"         = "IndicadorDetalhe",
+    "date"           = "Data",
+    "reference_date" = "DataReferencia",
+    "calc_type"      = "tipoCalculo",
+    "mean"           = "Media",
+    "median"         = "Mediana",
+    "sd"             = "DesvioPadrao",
+    "coef_var"       = "CoeficienteVariacao",
+    "min"            = "Minimo",
+    "max"            = "Maximo",
+    "n_respondents"  = "numeroRespondentes",
+    "basis"          = "baseCalculo"
   )
+
+  df <- dplyr::rename(
+    dplyr::as_tibble(df),
+    dplyr::any_of(new_names)
+  )
+
   df <- dplyr::mutate(
     df,
     date = as.Date(date, format = "%Y-%m-%d"),

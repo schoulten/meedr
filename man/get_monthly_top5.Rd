@@ -42,9 +42,9 @@ This function provides the extraction of data and statistics related to the expe
 \details{
 For periods for which there are no statistics, they will be omitted from the query.
 
-Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Meta para taxa over-selic", "Taxa de câmbio".
+Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'IPCA', 'Selic', 'Câmbio'.
 
-Possible values for calc_type argument: "short", "medium" or "long".
+Possible values for calc_type argument: 'short', 'medium' or 'long'.
 }
 \examples{
 df <- get_monthly_top5(
