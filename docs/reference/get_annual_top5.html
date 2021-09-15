@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">meedr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
       </span>
     </div>
 
@@ -130,14 +130,14 @@
 
     <pre class="usage"><span class='fu'>get_annual_top5</span><span class='op'>(</span>
   indicator <span class='op'>=</span> <span class='cn'>NULL</span>,
-  detail <span class='op'>=</span> <span class='cn'>NULL</span>,
   first_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>2</span> <span class='op'>*</span> <span class='fl'>365</span>,
   last_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>,
   reference_date <span class='op'>=</span> <span class='cn'>NULL</span>,
   calc_type <span class='op'>=</span> <span class='cn'>NULL</span>,
   be_quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
   use_memoise <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  do_parallel <span class='op'>=</span> <span class='cn'>FALSE</span>
+  do_parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  detail <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -146,10 +146,6 @@
     <tr>
       <th>indicator</th>
       <td><p>A single string or a character vector with economic indicators names, see details for possible values. Defaults to NULL.</p></td>
-    </tr>
-    <tr>
-      <th>detail</th>
-      <td><p>A single string. Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>first_date</th>
@@ -179,6 +175,10 @@
       <th>do_parallel</th>
       <td><p>Logical. For using parallel data importation. Defaults to FALSE.</p></td>
     </tr>
+    <tr>
+      <th>detail</th>
+      <td><p>Deprecated by API BCB-Olinda.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -187,9 +187,8 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For periods for which there are no statistics, they will be omitted from the query.</p>
-<p>Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Meta para taxa over-selic", "Taxa de câmbio".</p>
-<p>Possible values for detail argument: if indicator "Meta para taxa over-selic" or "Taxa de câmbio" -&gt; "Fim do ano" / "Media do ano".</p>
-<p>Possible values for calc_type argument: "short", "medium" or "long".</p>
+<p>Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'IPCA', 'Selic', 'Câmbio'.</p>
+<p>Possible values for calc_type argument: 'short', 'medium' or 'long'.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Fernando da Silva &lt;<a href='mailto:fernando@fortietwo.com'>fernando@fortietwo.com</a>&gt;</p>
@@ -197,12 +196,13 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>get_annual_top5</span><span class='op'>(</span>
   indicator <span class='op'>=</span> <span class='st'>"IPCA"</span>,
+  first_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>30</span>,
   reference_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"%Y"</span><span class='op'>)</span>,
   use_memoise <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Fetching [IPCA] data from BCB-Olinda... </span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Found 1503 observations!</span></div></pre>
+#&gt; <span class='message'>Found 57 observations!</span></div><div class='output co'>#&gt; <span class='warning'>Warning: number of items to replace is not a multiple of replacement length</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NAs introduced by coercion</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unreplaced values treated as NA as .x is not compatible. Please specify replacements exhaustively or supply .default</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
