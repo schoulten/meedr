@@ -39,7 +39,7 @@ This function provides the extraction of data and statistics related to the expe
 \details{
 For periods for which there are no statistics, they will be omitted from the query.
 
-Possible values for indicator argument: "IGP-DI", "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-FIPE".
+Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'INPC', 'IPA-DI', 'IPA-M', 'IPCA', 'IPCA-15', 'IPC-Fipe', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços'.
 }
 \examples{
 df <- get_inflation_12m(
