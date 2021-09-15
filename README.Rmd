@@ -38,13 +38,6 @@ Check the [meedr pkgdown page](https://fortietwo.com/meedr/) for more general in
 
 ## Installation
 
-
-You can install the released version of meedr from [CRAN](https://cran.r-project.org/package=meedr) with:
-
-``` r
-install.packages("meedr")
-```
-
 You can install the development version from [GitHub](https://github.com/schoulten/meedr) with:
 
 ```r
@@ -98,7 +91,7 @@ meedr::get_quarterly(
 ```r
 # Annual market expectations for SELIC and exchange rate (BRL) indicator
 meedr::get_annual(
-  indicator      = c("Meta para taxa over-selic", "Taxa de câmbio"),
+  indicator      = c("Selic", "Câmbio"),
   reference_date = format(Sys.Date(), "%Y"),
   be_quiet       = TRUE
   )
@@ -111,7 +104,7 @@ meedr::get_annual(
 # First, and a suggestion, run this for using parallel computing:
 future::plan(future::multisession, workers = floor(future::availableCores()/2))
 meedr::get_inflation_12m(
-  indicator   = c("IGP-DI", "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-FIPE"),
+  indicator   = c("IGP-DI", "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-Fipe"),
   smoothed    = "yes",
   be_quiet    = FALSE, # display messages
   do_parallel = TRUE # turn on parallel computing
@@ -135,8 +128,8 @@ meedr::get_monthly_top5(
 ```r
 # Annual market expectations for SELIC indicator (Top 5 Focus)
 meedr::get_annual_top5(
-  indicator   = "Meta para taxa over-selic",
-  detail      = "Fim do ano",
+  indicator   = "Selic",
+  detail      = "Fim do ano", # argument deprecated by API BCB-Olinda
   be_quiet    = TRUE,
   use_memoise = FALSE # disable caching system
   )

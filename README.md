@@ -40,13 +40,6 @@ general information ;)
 
 ## Installation
 
-You can install the released version of meedr from
-[CRAN](https://cran.r-project.org/package=meedr) with:
-
-``` r
-install.packages("meedr")
-```
-
 You can install the development version from
 [GitHub](https://github.com/schoulten/meedr) with:
 
@@ -87,15 +80,15 @@ ipca <- meedr::get_monthly(
   )
 
 head(ipca, 5)
-#> # A tibble: 5 x 11
+#> # A tibble: 5 x 10
 #>   indicator date       reference_date  mean median    sd coef_var   min   max
-#>   <chr>     <date>     <chr>          <dbl>  <dbl> <dbl>    <dbl> <dbl> <dbl>
-#> 1 IPCA      2021-07-30 08/2021         0.43   0.44  0.11     26.0  0.06  0.68
-#> 2 IPCA      2021-07-30 08/2021         0.46   0.46  0.09     19.8  0.23  0.68
-#> 3 IPCA      2021-07-29 08/2021         0.42   0.41  0.12     27.9  0.06  0.79
-#> 4 IPCA      2021-07-29 08/2021         0.44   0.43  0.1      23.0  0.23  0.79
-#> 5 IPCA      2021-07-28 08/2021         0.41   0.41  0.12     28.6  0.06  0.79
-#> # ... with 2 more variables: n_respondents <int>, basis <int>
+#>   <chr>     <date>     <chr>          <dbl>  <dbl> <dbl>    <dbl> <dbl> <int>
+#> 1 IPCA      2021-09-10 09/2021        0.875  0.915 0.179    0.42   1.13    74
+#> 2 IPCA      2021-09-10 09/2021        0.763  0.77  0.228    0.277  1.13   121
+#> 3 IPCA      2021-09-09 09/2021        0.800  0.81  0.179    0.42   1.13    69
+#> 4 IPCA      2021-09-09 09/2021        0.698  0.72  0.207    0.277  1.13   121
+#> 5 IPCA      2021-09-08 09/2021        0.754  0.75  0.148    0.33   1.01    61
+#> # ... with 1 more variable: n_respondents <int>
 ```
 
 ### get\_quarterly()
@@ -115,7 +108,7 @@ meedr::get_quarterly(
 ``` r
 # Annual market expectations for SELIC and exchange rate (BRL) indicator
 meedr::get_annual(
-  indicator      = c("Meta para taxa over-selic", "Taxa de câmbio"),
+  indicator      = c("Selic", "Câmbio"),
   reference_date = format(Sys.Date(), "%Y"),
   be_quiet       = TRUE
   )
@@ -128,7 +121,7 @@ meedr::get_annual(
 # First, and a suggestion, run this for using parallel computing:
 future::plan(future::multisession, workers = floor(future::availableCores()/2))
 meedr::get_inflation_12m(
-  indicator   = c("IGP-DI", "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-FIPE"),
+  indicator   = c("IGP-DI", "IGP-M", "INPC", "IPA-DI", "IPA-M", "IPCA", "IPCA-15", "IPC-Fipe"),
   smoothed    = "yes",
   be_quiet    = FALSE, # display messages
   do_parallel = TRUE # turn on parallel computing
@@ -152,8 +145,8 @@ meedr::get_monthly_top5(
 ``` r
 # Annual market expectations for SELIC indicator (Top 5 Focus)
 meedr::get_annual_top5(
-  indicator   = "Meta para taxa over-selic",
-  detail      = "Fim do ano",
+  indicator   = "Selic",
+  detail      = "Fim do ano", # argument deprecated by API BCB-Olinda
   be_quiet    = TRUE,
   use_memoise = FALSE # disable caching system
   )
