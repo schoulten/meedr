@@ -1,6 +1,6 @@
 Package: meedr
 Title: Macroeconomic Expectations Data in R using the Central Bank of Brazil API
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: 
     person(given = "Fernando",
            family = "da Silva",
