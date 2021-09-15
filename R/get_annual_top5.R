@@ -14,9 +14,9 @@
 #' @description This function provides the extraction of data and statistics related to the expectations of economic indicators, specifically the annual market expectations of the indicators of the Top 5 Focus ranking, made available by the Central Bank of Brazil's Expectations System through the Olinda API. The data comes from several financial institutions: banks, funds, research houses, etc. Important: arguments are case sensitive.
 #' @details For periods for which there are no statistics, they will be omitted from the query.
 #'
-#' Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Selic", "Câmbio".
+#' Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'IPCA', 'Selic', 'Câmbio'.
 #'
-#' Possible values for calc_type argument: "short", "medium" or "long".
+#' Possible values for calc_type argument: 'short', 'medium' or 'long'.
 #'
 #' @author Fernando da Silva <<fernando@fortietwo.com>>
 #' @encoding UTF-8

@@ -15,7 +15,7 @@
 #'
 #' Possible values for indicator argument: 'Balança comercial', 'Conta corrente', 'Investimento direto no país', 'Dívida bruta do governo geral', 'Dívida líquida do setor público', 'Resultado primário', 'Resultado nominal', 'IGP-DI', 'IGP-M', 'INPC', 'IPA-DI', 'IPA-M', 'IPCA', 'IPCA-15', 'IPC-Fipe', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Produção industrial', 'PIB Agropecuária', 'PIB Indústria', 'PIB Serviços', 'PIB Total', 'PIB Despesa de consumo da administração pública', 'PIB Despesa de consumo das famílias', 'PIB Exportação de bens e serviços', 'PIB Formação Bruta de Capital Fixo', 'PIB Importação de bens e serviços', 'Taxa de desocupação', 'Selic', 'Câmbio'.
 #'
-#' Possible values for detail argument: if indicator "Balança comercial" -> "Exportações", "Importações", "Saldo".
+#' Possible values for detail argument: if indicator 'Balança comercial' -> 'Exportações', 'Importações', 'Saldo'.
 #'
 #' @author Fernando da Silva <<fernando@fortietwo.com>>
 #' @encoding UTF-8
