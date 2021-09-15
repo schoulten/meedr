@@ -1,7 +1,6 @@
 #' Get data on annual market expectations for the Top 5 indicators (Focus/BCB)
 #'
 #' @param indicator A single string or a character vector with economic indicators names, see details for possible values. Defaults to NULL.
-#' @param detail A single string. Defaults to NULL.
 #' @param first_date A single string or Date in "YYYY-mm-dd" format. Default for 2 years prior to the current date.
 #' @param last_date A single string or Date in "YYYY-mm-dd" format. Default is the current date.
 #' @param reference_date A single string in "YYYY" format, indicating the reference year for which the statistic is expected. Defaults to NULL.
@@ -9,16 +8,16 @@
 #' @param be_quiet Logical. Should messages or warnings not be displayed? Defaults to FALSE.
 #' @param use_memoise Logical. Sets the use of caching system, creating a folder named "cache_bcb" by default. Default to TRUE.
 #' @param do_parallel Logical. For using parallel data importation. Defaults to FALSE.
+#' @param detail Deprecated by API BCB-Olinda.
 #'
 #' @return A tibble with data from BCB-Olinda Data Services.
 #' @description This function provides the extraction of data and statistics related to the expectations of economic indicators, specifically the annual market expectations of the indicators of the Top 5 Focus ranking, made available by the Central Bank of Brazil's Expectations System through the Olinda API. The data comes from several financial institutions: banks, funds, research houses, etc. Important: arguments are case sensitive.
 #' @details For periods for which there are no statistics, they will be omitted from the query.
 #'
-#' Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Meta para taxa over-selic", "Taxa de câmbio".
-#'
-#' Possible values for detail argument: if indicator "Meta para taxa over-selic" or "Taxa de câmbio" -> "Fim do ano" / "Media do ano".
+#' Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Selic", "Câmbio".
 #'
 #' Possible values for calc_type argument: "short", "medium" or "long".
+#'
 #' @author Fernando da Silva <<fernando@fortietwo.com>>
 #' @encoding UTF-8
 #' @export
@@ -32,59 +31,34 @@
 #' )
 get_annual_top5 <- function (
   indicator      = NULL,
-  detail         = NULL,
   first_date     = Sys.Date() - 2*365,
   last_date      = Sys.Date(),
   reference_date = NULL,
   calc_type      = NULL,
   be_quiet       = FALSE,
   use_memoise    = TRUE,
-  do_parallel    = FALSE
+  do_parallel    = FALSE,
+  detail         = NULL
   ){
-  valid_indicator <- c("IGP-DI", "IGP-M", "IPCA", "Meta para taxa over-selic", "Taxa de c\u00e2mbio")
+  valid_indicator <- c("IGP-DI", "IGP-M", "IPCA", "Selic", "C\u00e2mbio")
 
   if (missing(indicator) | !all(indicator %in% valid_indicator) | is.null(indicator)) {
     stop("\nArgument 'indicator' is not valid or missing. Check your inputs.", call. = FALSE)
-  } else indicator
-
-  valid_detail <- c(
-    "Meta para taxa over-selic / Fim do ano",
-    "Meta para taxa over-selic / Media do ano",
-    "Taxa de c\u00e2mbio / Fim do ano",
-    "Taxa de c\u00e2mbio / Media do ano"
-  )
-
-  if (!is.null(detail) && !is.na(detail)) {
-    if ((class(detail) != "character")) {
-      stop("\nArgument 'detail' is not valid. Check your inputs.", call. = FALSE)
-    } else if
-    (!all(paste0(indicator, " / ", detail) %in% valid_detail)) {
-      stop("\nArgument 'detail' is not valid. Check your inputs.", call. = FALSE)
-    } else if
-    (length(detail) > 1) {
-      stop("\nArgument 'detail' is not valid. Check your inputs.", call. = FALSE)
-    } else
-      detail
-  } else if
-  ((length(detail) > 0) && is.na(detail)) {
-    detail <- NULL
-  } else detail
+  }
 
   first_date <- try(as.Date(first_date), silent = TRUE)
   if (length(first_date) <= 0 || is.na(first_date)) {first_date = NULL}
   if (class(first_date) %in% "try-error") {
     stop("\nArgument 'first_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365} else
-    first_date
+  if (missing(first_date)) {first_date = Sys.Date() - 10 * 365}
 
   last_date <- try(as.Date(last_date), silent = TRUE)
   if (length(last_date) <= 0 || is.na(last_date)) {last_date = NULL}
   if (class(last_date) %in% "try-error") {
     stop("\nArgument 'last_date' is not a valid date.", call. = FALSE)
   }
-  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365} else
-    last_date
+  if (missing(last_date)) {last_date = Sys.Date() - 10 * 365}
 
   if ((length(first_date) > 0) && first_date > Sys.Date()) {
     stop("\nIt seems that 'first_date' > current date. Check your inputs.", call. = FALSE)
@@ -105,8 +79,7 @@ get_annual_top5 <- function (
     } else
       stop("\nArgument 'reference_date' is not valid. Check yout inputs.", call. = FALSE)
   } else if
-  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL} else
-    reference_date
+  (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL}
 
   if (!is.null(calc_type) && !is.na(calc_type) & length(calc_type) > 0) {
     if ((class(calc_type) != "character")) {
@@ -137,7 +110,6 @@ get_annual_top5 <- function (
 
   foo_args <- paste0(
     paste0("(", paste(sprintf("Indicador eq '%s'", indicator), collapse = " or ", sep = ""), ")"),
-    sprintf(" and IndicadorDetalhe eq '%s'", detail),
     sprintf(" and Data ge '%s'", first_date),
     sprintf(" and Data le '%s'", last_date),
     sprintf(" and DataReferencia eq '%s'", reference_date),
@@ -234,11 +206,28 @@ get_annual_top5 <- function (
   else
     message(paste0("\nFound ", nrow(df), " observations!\n"), appendLF = FALSE)
 
-  df <- dplyr::rename_with(
-    dplyr::as_tibble(df),
-    ~c("indicator", "detail", "date", "reference_date", "calc_type",
-       "mean", "median", "sd", "coef_var", "min", "max")
+  new_names <- c(
+    "indicator"      = "Indicador",
+    "detail"         = "IndicadorDetalhe",
+    "date"           = "Data",
+    "reference_date" = "DataReferencia",
+    "calc_type"      = "tipoCalculo",
+    "mean"           = "Media",
+    "median"         = "Mediana",
+    "sd"             = "DesvioPadrao",
+    "coef_var"       = "CoeficienteVariacao",
+    "min"            = "Minimo",
+    "max"            = "Maximo",
+    "n_respondents"  = "numeroRespondentes",
+    "basis"          = "baseCalculo"
   )
+
+  df <- dplyr::rename(
+    dplyr::as_tibble(df),
+    dplyr::any_of(new_names)
+  )
+
+
   df <- dplyr::mutate(
     df,
     date = as.Date(date, format = "%Y-%m-%d"),

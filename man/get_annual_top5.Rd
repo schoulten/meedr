@@ -7,20 +7,18 @@
 \usage{
 get_annual_top5(
   indicator = NULL,
-  detail = NULL,
   first_date = Sys.Date() - 2 * 365,
   last_date = Sys.Date(),
   reference_date = NULL,
   calc_type = NULL,
   be_quiet = FALSE,
   use_memoise = TRUE,
-  do_parallel = FALSE
+  do_parallel = FALSE,
+  detail = NULL
 )
 }
 \arguments{
 \item{indicator}{A single string or a character vector with economic indicators names, see details for possible values. Defaults to NULL.}
-
-\item{detail}{A single string. Defaults to NULL.}
 
 \item{first_date}{A single string or Date in "YYYY-mm-dd" format. Default for 2 years prior to the current date.}
 
@@ -35,6 +33,8 @@ get_annual_top5(
 \item{use_memoise}{Logical. Sets the use of caching system, creating a folder named "cache_bcb" by default. Default to TRUE.}
 
 \item{do_parallel}{Logical. For using parallel data importation. Defaults to FALSE.}
+
+\item{detail}{Deprecated by API BCB-Olinda.}
 }
 \value{
 A tibble with data from BCB-Olinda Data Services.
@@ -45,9 +45,7 @@ This function provides the extraction of data and statistics related to the expe
 \details{
 For periods for which there are no statistics, they will be omitted from the query.
 
-Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Meta para taxa over-selic", "Taxa de câmbio".
-
-Possible values for detail argument: if indicator "Meta para taxa over-selic" or "Taxa de câmbio" -> "Fim do ano" / "Media do ano".
+Possible values for indicator argument: "IGP-DI", "IGP-M", "IPCA", "Selic", "Câmbio".
 
 Possible values for calc_type argument: "short", "medium" or "long".
 }
