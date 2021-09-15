@@ -108,6 +108,15 @@ get_annual_top5 <- function (
     stop("\nArgument 'be_quiet' must be logical. Check your inputs.", call. = FALSE)
   }
 
+  if (!is.null(detail))
+    if (be_quiet) {message("", appendLF = FALSE)} else {
+      message(
+        "\nArgument 'detail' was deprecated by the BCB-Olinda API, ignoring it.\n",
+        appendLF = FALSE
+        )
+      }
+
+
   foo_args <- paste0(
     paste0("(", paste(sprintf("Indicador eq '%s'", indicator), collapse = " or ", sep = ""), ")"),
     sprintf(" and Data ge '%s'", first_date),
