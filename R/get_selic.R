@@ -42,14 +42,14 @@ get_selic <- function(
 
   first_date <- try(as.Date(first_date), silent = TRUE)
   if (length(first_date) <= 0 || is.na(first_date)) {first_date = NULL}
-  if (class(first_date) %in% "try-error") {
+  if (inherits(first_date, "try-error")) {
     stop("\nArgument 'first_date' is not a valid date.", call. = FALSE)
   }
   if (missing(first_date)) {first_date = Sys.Date() - 10 * 365}
 
   last_date <- try(as.Date(last_date), silent = TRUE)
   if (length(last_date) <= 0 || is.na(last_date)) {last_date = NULL}
-  if (class(last_date) %in% "try-error") {
+  if (inherits(last_date, "try-error")) {
     stop("\nArgument 'last_date' is not a valid date.", call. = FALSE)
   }
   if (missing(last_date)) {last_date = Sys.Date() - 10 * 365}
@@ -65,7 +65,7 @@ get_selic <- function(
   }
 
   if (!is.null(meeting) && !is.na(meeting)) {
-    if ((class(meeting) != "character")) {
+    if (!inherits(meeting, "character")) {
       stop("\nArgument 'meeting' is not valid. Check your inputs.", call. = FALSE)
     } else if
     (nchar(meeting) == 7L & (grepl("(R\\d{1})(\\/{1})(\\d{4}$)", meeting))) {
@@ -77,11 +77,11 @@ get_selic <- function(
     meeting <- NULL
     } else meeting <- NULL
 
-  if ((class(do_parallel) != "logical") || (is.na(do_parallel))) {
+  if (!inherits(do_parallel, "logical") || (is.na(do_parallel))) {
     stop("\nArgument 'do_parallel' must be logical. Check your inputs.", call. = FALSE)
   }
 
-  if ((class(be_quiet) != "logical") || (is.na(be_quiet))) {
+  if (!inherits(be_quiet, "logical") || (is.na(be_quiet))) {
     stop("\nArgument 'be_quiet' must be logical. Check your inputs.", call. = FALSE)
   }
 
@@ -103,7 +103,7 @@ get_selic <- function(
       )
     )
 
-  if ((class(use_memoise) != "logical") || (is.na(use_memoise))) {
+  if (!inherits(use_memoise, "logical") || (is.na(use_memoise))) {
     stop("\nArgument 'use_memoise' must be logical. Check your inputs.", call. = FALSE)
   } else
     memoising <- function(use_memoise, cache_dir) {

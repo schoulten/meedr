@@ -52,14 +52,14 @@ get_monthly_top5 <- function (
 
   first_date <- try(as.Date(first_date), silent = TRUE)
   if (length(first_date) <= 0 || is.na(first_date)) {first_date = NULL}
-  if (class(first_date) %in% "try-error") {
+  if (inherits(first_date, "try-error")) {
     stop("\nArgument 'first_date' is not a valid date.", call. = FALSE)
   }
   if (missing(first_date)) {first_date = Sys.Date() - 10 * 365}
 
   last_date <- try(as.Date(last_date), silent = TRUE)
   if (length(last_date) <= 0 || is.na(last_date)) {last_date = NULL}
-  if (class(last_date) %in% "try-error") {
+  if (inherits(last_date, "try-error")) {
     stop("\nArgument 'last_date' is not a valid date.", call. = FALSE)
   }
   if (missing(last_date)) {last_date = Sys.Date() - 10 * 365}
@@ -75,7 +75,7 @@ get_monthly_top5 <- function (
   }
 
   if (!is.null(reference_date) && !is.na(reference_date)) {
-    if ((class(reference_date) != "character")) {
+    if (!inherits(reference_date, "character")) {
       stop("\nArgument 'reference_date' is not valid. Check your inputs.", call. = FALSE)
     } else if
     (nchar(reference_date) == 7L & (grepl("(\\d{2})(\\/{1})(\\d{4}$)", reference_date))) {
@@ -86,7 +86,7 @@ get_monthly_top5 <- function (
   (is.na(reference_date) && (length(reference_date) > 0)) {reference_date <- NULL}
 
   if (!is.null(calc_type) && !is.na(calc_type) & length(calc_type) > 0) {
-    if ((class(calc_type) != "character")) {
+    if (!inherits(calc_type, "character")) {
       stop("\nArgument 'calc_type' is not valid. Check your inputs.", call. = FALSE)
     } else if
     (!all(calc_type %in% c("short", "medium", "long"))){
@@ -104,11 +104,11 @@ get_monthly_top5 <- function (
     stop("\nArgument 'calc_type' is not valid. Check your inputs.", call. = FALSE)
   }
 
-  if ((class(do_parallel) != "logical") || (is.na(do_parallel))) {
+  if (!inherits(do_parallel, "logical") || (is.na(do_parallel))) {
     stop("\nArgument 'do_parallel' must be logical. Check your inputs.", call. = FALSE)
   } else if
 
-  ((class(be_quiet) != "logical") || (is.na(be_quiet))) {
+  (!inherits(be_quiet, "logical") || (is.na(be_quiet))) {
     stop("\nArgument 'be_quiet' must be logical. Check your inputs.", call. = FALSE)
   }
 
@@ -133,7 +133,7 @@ get_monthly_top5 <- function (
     )
   )
 
-  if ((class(use_memoise) != "logical") || (is.na(use_memoise))) {
+  if (!inherits(use_memoise, "logical") || (is.na(use_memoise))) {
     stop("\nArgument 'use_memoise' must be logical. Check your inputs.", call. = FALSE)
   } else
     memoising <- function(use_memoise, cache_dir) {
