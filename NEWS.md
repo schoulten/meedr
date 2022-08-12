@@ -1,3 +1,5 @@
+# meedr 0.0.4
+
 # meedr 0.0.3
 * Updates list of indicators due to API BCB-Olinda change
 
