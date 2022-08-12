@@ -22,8 +22,8 @@
 #' df <- get_quarterly(
 #'   indicator = "PIB Total",
 #'   first_date = Sys.Date() - 30,
-#'   reference_date = paste0(lubridate::quarter(Sys.Date()), "/",
-#'                           lubridate::year(Sys.Date())
+#'   reference_date = paste0(substr(quarters(Sys.Date()), 2, 2), "/",
+#'                           format(Sys.Date(), format = "%Y")
 #'                           ),
 #'   use_memoise = FALSE
 #' )
@@ -178,8 +178,8 @@ get_quarterly <- function (
     )
   }
 
-  if (class(df) == "try-error") {
-    stop("\nError in fetching data: ", conditionMessage(attr(df, "condition")),
+  if (inherits(df, "try-error")) {
+    stop("\nProblem in fetching data, error message: ", conditionMessage(attr(df, "condition")),
          call. = FALSE
     )
   } else if (purrr::is_empty(df)) {

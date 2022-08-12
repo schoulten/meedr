@@ -45,8 +45,8 @@ Possible values for indicator argument: 'IPCA', 'IPCA Administrados', 'IPCA Alim
 df <- get_quarterly(
   indicator = "PIB Total",
   first_date = Sys.Date() - 30,
-  reference_date = paste0(lubridate::quarter(Sys.Date()), "/",
-                          lubridate::year(Sys.Date())
+  reference_date = paste0(substr(quarters(Sys.Date()), 2, 2), "/",
+                          format(Sys.Date(), format = "\%Y")
                           ),
   use_memoise = FALSE
 )

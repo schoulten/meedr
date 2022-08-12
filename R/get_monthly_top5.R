@@ -192,8 +192,8 @@ get_monthly_top5 <- function (
     )
   }
 
-  if (class(df) == "try-error") {
-    stop("\nError in fetching data: ", conditionMessage(attr(df, "condition")),
+  if (inherits(df, "try-error")) {
+    stop("\nProblem in fetching data, error message: ", conditionMessage(attr(df, "condition")),
          call. = FALSE
     )
   } else if
