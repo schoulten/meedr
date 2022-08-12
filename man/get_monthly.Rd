@@ -39,7 +39,7 @@ This function provides the extraction of data and statistics related to expectat
 \details{
 For periods for which there are no statistics, they will be omitted from the query.
 
-Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'INPC', 'IPA-DI', 'IPA-M', 'IPCA', 'IPCA-15', 'IPC-Fipe', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Selic', 'Câmbio', 'Taxa de desocupação', 'Produção industrial'.
+Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'INPC', 'IPA-DI', 'IPA-M', 'IPCA', 'IPCA-15', 'IPC-Fipe', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Selic' (discontinued by source, data may be partial), 'Câmbio', 'Taxa de desocupação', 'Produção industrial'.
 }
 \examples{
 df <- get_monthly(

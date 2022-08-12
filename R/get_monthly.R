@@ -12,7 +12,7 @@
 #' @description This function provides the extraction of data and statistics related to expectations of economic indicators, specifically monthly market expectations, made available by the Central Bank of Brazil's Expectations System through the Olinda API. The data comes from several financial institutions: banks, funds, research houses, etc. Important: arguments are case sensitive.
 #' @details For periods for which there are no statistics, they will be omitted from the query.
 #'
-#' Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'INPC', 'IPA-DI', 'IPA-M', 'IPCA', 'IPCA-15', 'IPC-Fipe', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Selic', 'Câmbio', 'Taxa de desocupação', 'Produção industrial'.
+#' Possible values for indicator argument: 'IGP-DI', 'IGP-M', 'INPC', 'IPA-DI', 'IPA-M', 'IPCA', 'IPCA-15', 'IPC-Fipe', 'IPCA Administrados', 'IPCA Alimentação no domicílio', 'IPCA Bens industrializados', 'IPCA Livres', 'IPCA Serviços', 'Selic' (discontinued by source, data may be partial), 'Câmbio', 'Taxa de desocupação', 'Produção industrial'.
 #'
 #' @author Fernando da Silva <<fernando@fortietwo.com>>
 #' @encoding UTF-8
@@ -59,6 +59,13 @@ get_monthly <- function(
 
   if (missing(indicator) | !all(indicator %in% valid_indicator) | is.null(indicator)) {
     stop("\nArgument 'indicator' is not valid or missing. Check your inputs.", call. = FALSE)
+  }
+  if ("Selic" %in% indicator) {
+    warning(
+      "The Selic indicator has been discontinued by the source, data returned may be partial.\nSuggestion: use the get_selic() function to access the new API data.",
+      call. = FALSE,
+      immediate. = TRUE
+    )
   }
 
   first_date <- try(as.Date(first_date), silent = TRUE)
