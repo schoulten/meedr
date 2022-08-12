@@ -40,29 +40,30 @@ You can install the development version from
 [GitHub](https://github.com/schoulten/meedr) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("schoulten/meedr")
+# install.packages("remotes")
+remotes::install_github("schoulten/meedr")
 ```
 
 ## Features
 
--   [get\_monthly()](#get_monthly): Get data on monthly market
+-   [get_monthly()](#get_monthly): Get data on monthly market
     expectations
--   [get\_quarterly()](#get_quarterly): Get data on quarterly market
+-   [get_quarterly()](#get_quarterly): Get data on quarterly market
     expectations
--   [get\_annual()](#get_annual): Get data on annual market expectations
--   [get\_inflation\_12m()](#get_inflation_12m): Get data on market
+-   [get_annual()](#get_annual): Get data on annual market expectations
+-   [get_inflation_12m()](#get_inflation_12m): Get data on market
     expectations for inflation over the next 12 months
--   [get\_monthly\_top5()](#get_monthly_top5): Get data on monthly
-    market expectations for the Top 5 indicators
--   [get\_annual\_top5()](#get_annual_top5): Get data on annual market
+-   [get_monthly_top5()](#get_monthly_top5): Get data on monthly market
     expectations for the Top 5 indicators
+-   [get_annual_top5()](#get_annual_top5): Get data on annual market
+    expectations for the Top 5 indicators
+-   [get_selic()](#get_selic): Get Selic market expectations data
 
 ## Example
 
 These are some basic examples of using the package:
 
-### get\_monthly()
+### get_monthly()
 
 ``` r
 library(meedr)
@@ -76,18 +77,18 @@ ipca <- meedr::get_monthly(
   )
 
 head(ipca, 5)
-#> # A tibble: 5 x 10
-#>   indicator date       reference_date  mean median    sd coef_var   min   max
-#>   <chr>     <date>     <chr>          <dbl>  <dbl> <dbl>    <dbl> <dbl> <int>
-#> 1 IPCA      2021-09-10 09/2021        0.875  0.915 0.179    0.42   1.13    74
-#> 2 IPCA      2021-09-10 09/2021        0.763  0.77  0.228    0.277  1.13   121
-#> 3 IPCA      2021-09-09 09/2021        0.800  0.81  0.179    0.42   1.13    69
-#> 4 IPCA      2021-09-09 09/2021        0.698  0.72  0.207    0.277  1.13   121
-#> 5 IPCA      2021-09-08 09/2021        0.754  0.75  0.148    0.33   1.01    61
-#> # ... with 1 more variable: n_respondents <int>
+#> # A tibble: 5 × 10
+#>   indicator date       reference_date   mean median    sd    min   max
+#>   <chr>     <date>     <chr>           <dbl>  <dbl> <dbl>  <dbl> <dbl>
+#> 1 IPCA      2022-08-05 08/2022        -0.149 -0.15  0.180 -0.580  0.35
+#> 2 IPCA      2022-08-05 08/2022        -0.125 -0.15  0.197 -0.580  0.55
+#> 3 IPCA      2022-08-04 08/2022        -0.157 -0.17  0.181 -0.840  0.35
+#> 4 IPCA      2022-08-04 08/2022        -0.117 -0.135 0.207 -0.840  0.55
+#> 5 IPCA      2022-08-03 08/2022        -0.154 -0.165 0.182 -0.840  0.35
+#> # … with 2 more variables: n_respondents <int>, basis <int>
 ```
 
-### get\_quarterly()
+### get_quarterly()
 
 ``` r
 # Quarterly market expectations for GDP indicator
@@ -99,7 +100,7 @@ meedr::get_quarterly(
   )
 ```
 
-### get\_annual()
+### get_annual()
 
 ``` r
 # Annual market expectations for SELIC and exchange rate (BRL) indicator
@@ -110,7 +111,7 @@ meedr::get_annual(
   )
 ```
 
-### get\_inflation\_12m()
+### get_inflation_12m()
 
 ``` r
 # Inflation over the next 12 months
@@ -124,7 +125,7 @@ meedr::get_inflation_12m(
   )
 ```
 
-### get\_monthly\_top5()
+### get_monthly_top5()
 
 ``` r
 # Monthly market expectations for IGP-M indicator (Top 5 Focus)
@@ -136,7 +137,7 @@ meedr::get_monthly_top5(
   )
 ```
 
-### get\_annual\_top5()
+### get_annual_top5()
 
 ``` r
 # Annual market expectations for SELIC indicator (Top 5 Focus)
@@ -146,6 +147,52 @@ meedr::get_annual_top5(
   be_quiet    = TRUE,
   use_memoise = FALSE # disable caching system
   )
+```
+
+### get_selic()
+
+``` r
+df1 <- get_selic(indicator = "Selic", first_date = Sys.Date() - 30)
+#> 
+#> Fetching [Selic] data from BCB-Olinda...
+#> 
+#> Found 576 observations!
+df1
+#> # A tibble: 576 × 10
+#>    indicator date       meeting  mean median    sd   min   max n_respondents
+#>    <chr>     <date>     <chr>   <dbl>  <dbl> <dbl> <dbl> <dbl>         <int>
+#>  1 Selic     2022-08-05 R5/2024  8.91    9   0.854   7    10              14
+#>  2 Selic     2022-08-05 R5/2024  8.91    9   0.854   7    10              14
+#>  3 Selic     2022-08-05 R4/2024  8.87    9   0.894   7    10.5            30
+#>  4 Selic     2022-08-05 R4/2024  9.12    9   0.987   7    12.2           107
+#>  5 Selic     2022-08-05 R3/2024  9.34    9.5 0.949   7.5  11              33
+#>  6 Selic     2022-08-05 R3/2024  9.52    9.5 0.991   7.5  12.5           112
+#>  7 Selic     2022-08-05 R2/2024  9.81   10   0.894   8    11.5            33
+#>  8 Selic     2022-08-05 R2/2024  9.97   10   0.980   7.5  12.8           112
+#>  9 Selic     2022-08-05 R1/2024 10.4    10.4 0.934   8.5  13              34
+#> 10 Selic     2022-08-05 R1/2024 10.4    10.5 0.968   8.5  13             113
+#> # … with 566 more rows, and 1 more variable: basis <int>
+
+df2 <- get_selic(indicator = "Selic", first_date = NULL, meeting = "R1/2024")
+#> 
+#> Fetching [Selic] data from BCB-Olinda...
+#> 
+#> Found 254 observations!
+df2
+#> # A tibble: 254 × 10
+#>    indicator date       meeting  mean median    sd   min   max n_respondents
+#>    <chr>     <date>     <chr>   <dbl>  <dbl> <dbl> <dbl> <dbl>         <int>
+#>  1 Selic     2022-08-05 R1/2024  10.4   10.4 0.934  8.5   13              34
+#>  2 Selic     2022-08-05 R1/2024  10.4   10.5 0.968  8.5   13             113
+#>  3 Selic     2022-08-04 R1/2024  10.5   10.5 0.933  8.5   12.5            63
+#>  4 Selic     2022-08-04 R1/2024  10.4   10.5 0.954  8.5   13             113
+#>  5 Selic     2022-08-03 R1/2024  10.5   10.5 1.04   7.25  13              64
+#>  6 Selic     2022-08-03 R1/2024  10.4   10.5 0.990  7.25  13             113
+#>  7 Selic     2022-08-02 R1/2024  10.5   10.5 1.06   7.25  13              67
+#>  8 Selic     2022-08-02 R1/2024  10.4   10.5 0.990  7.25  13             113
+#>  9 Selic     2022-08-01 R1/2024  10.5   10.5 1.07   7.25  13              70
+#> 10 Selic     2022-08-01 R1/2024  10.4   10.5 0.989  7.25  13             113
+#> # … with 244 more rows, and 1 more variable: basis <int>
 ```
 
 ## Related works

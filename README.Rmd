@@ -39,8 +39,8 @@ Check the [meedr pkgdown page](https://fortietwo.com/meedr/) for more general in
 You can install the development version from [GitHub](https://github.com/schoulten/meedr) with:
 
 ```r
-# install.packages("devtools")
-devtools::install_github("schoulten/meedr")
+# install.packages("remotes")
+remotes::install_github("schoulten/meedr")
 ```
 
 ## Features
@@ -51,6 +51,7 @@ devtools::install_github("schoulten/meedr")
 - [get_inflation_12m()](#get_inflation_12m): Get data on market expectations for inflation over the next 12 months
 - [get_monthly_top5()](#get_monthly_top5): Get data on monthly market expectations for the Top 5 indicators
 - [get_annual_top5()](#get_annual_top5): Get data on annual market expectations for the Top 5 indicators
+- [get_selic()](#get_selic): Get Selic market expectations data
 
 ## Example
 
@@ -132,6 +133,17 @@ meedr::get_annual_top5(
   use_memoise = FALSE # disable caching system
   )
 ```
+
+### get_selic(){#get_selic}
+
+```{r}
+df1 <- get_selic(indicator = "Selic", first_date = Sys.Date() - 30)
+df1
+
+df2 <- get_selic(indicator = "Selic", first_date = NULL, meeting = "R1/2024")
+df2
+```
+
 
 ## Related works
 
