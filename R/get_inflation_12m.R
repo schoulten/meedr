@@ -56,14 +56,14 @@ get_inflation_12m <- function(
 
   first_date <- try(as.Date(first_date), silent = TRUE)
   if (length(first_date) <= 0 || is.na(first_date)) {first_date = NULL}
-  if (class(first_date) %in% "try-error") {
+  if (inherits(first_date, "try-error")) {
     stop("\nArgument 'first_date' is not a valid date.", call. = FALSE)
   }
   if (missing(first_date)) {first_date = Sys.Date() - 10 * 365}
 
   last_date <- try(as.Date(last_date), silent = TRUE)
   if (length(last_date) <= 0 || is.na(last_date)) {last_date = NULL}
-  if (class(last_date) %in% "try-error") {
+  if (inherits(last_date, "try-error")) {
     stop("\nArgument 'last_date' is not a valid date.", call. = FALSE)
   }
   if (missing(last_date)) {last_date = Sys.Date() - 10 * 365}
@@ -79,7 +79,7 @@ get_inflation_12m <- function(
   }
 
   if (!is.null(smoothed) && !is.na(smoothed)) {
-    if ((class(smoothed) != "character")) {
+    if (!inherits(smoothed, "character")) {
       stop("\nArgument 'smoothed' is not valid. Check your inputs.", call. = FALSE)
     } else if
     (!all(smoothed %in% c("yes", "no"))){
@@ -94,11 +94,11 @@ get_inflation_12m <- function(
   (is.na(smoothed) && (length(smoothed) > 0)) {smoothed <- NULL} else
     smoothed <- as.character(smoothed)
 
-  if ((class(do_parallel) != "logical") || (is.na(do_parallel))) {
+  if (!inherits(do_parallel, "logical") || (is.na(do_parallel))) {
     stop("\nArgument 'do_parallel' must be logical. Check your inputs.", call. = FALSE)
   } else if
 
-  ((class(be_quiet) != "logical") || (is.na(be_quiet))) {
+  (!inherits(be_quiet, "logical") || (is.na(be_quiet))) {
     stop("\nArgument 'be_quiet' must be logical. Check your inputs.", call. = FALSE)
   }
 
@@ -120,7 +120,7 @@ get_inflation_12m <- function(
     )
   )
 
-  if ((class(use_memoise) != "logical") || (is.na(use_memoise))) {
+  if (!inherits(use_memoise, "logical") || (is.na(use_memoise))) {
     stop("\nArgument 'use_memoise' must be logical. Check your inputs.", call. = FALSE)
   } else
     memoising <- function(use_memoise, cache_dir) {
