@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">meedr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -89,8 +89,8 @@
 </h2>
 <p>You can install the development version from <a href="https://github.com/schoulten/meedr" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"schoulten/meedr"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"schoulten/meedr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -108,6 +108,8 @@
 <a href="#get_monthly_top5">get_monthly_top5()</a>: Get data on monthly market expectations for the Top 5 indicators</li>
 <li>
 <a href="#get_annual_top5">get_annual_top5()</a>: Get data on annual market expectations for the Top 5 indicators</li>
+<li>
+<a href="#get_selic">get_selic()</a>: Get Selic market expectations data</li>
 </ul>
 </div>
 <div class="section level2">
@@ -129,15 +131,15 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ipca</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5 x 10</span></span>
-<span><span class="co">#&gt;   indicator date       reference_date  mean median    sd coef_var   min   max</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 IPCA      2021-09-10 09/2021        0.875  0.915 0.179    0.42   1.13    74</span></span>
-<span><span class="co">#&gt; 2 IPCA      2021-09-10 09/2021        0.763  0.77  0.228    0.277  1.13   121</span></span>
-<span><span class="co">#&gt; 3 IPCA      2021-09-09 09/2021        0.800  0.81  0.179    0.42   1.13    69</span></span>
-<span><span class="co">#&gt; 4 IPCA      2021-09-09 09/2021        0.698  0.72  0.207    0.277  1.13   121</span></span>
-<span><span class="co">#&gt; 5 IPCA      2021-09-08 09/2021        0.754  0.75  0.148    0.33   1.01    61</span></span>
-<span><span class="co">#&gt; # ... with 1 more variable: n_respondents &lt;int&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 5 × 10</span></span>
+<span><span class="co">#&gt;   indicator date       reference_date   mean median    sd    min   max</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 IPCA      2022-08-05 08/2022        -0.149 -0.15  0.180 -0.580  0.35</span></span>
+<span><span class="co">#&gt; 2 IPCA      2022-08-05 08/2022        -0.125 -0.15  0.197 -0.580  0.55</span></span>
+<span><span class="co">#&gt; 3 IPCA      2022-08-04 08/2022        -0.157 -0.17  0.181 -0.840  0.35</span></span>
+<span><span class="co">#&gt; 4 IPCA      2022-08-04 08/2022        -0.117 -0.135 0.207 -0.840  0.55</span></span>
+<span><span class="co">#&gt; 5 IPCA      2022-08-03 08/2022        -0.154 -0.165 0.182 -0.840  0.35</span></span>
+<span><span class="co">#&gt; # … with 2 more variables: n_respondents &lt;int&gt;, basis &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="get_quarterly">get_quarterly()<a class="anchor" aria-label="anchor" href="#get_quarterly"></a>
@@ -199,6 +201,52 @@
 <span>  be_quiet    <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  use_memoise <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># disable caching system</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="get_selic">get_selic()<a class="anchor" aria-label="anchor" href="#get_selic"></a>
+</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_selic.html">get_selic</a></span><span class="op">(</span>indicator <span class="op">=</span> <span class="st">"Selic"</span>, first_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">30</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Fetching [Selic] data from BCB-Olinda...</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Found 576 observations!</span></span>
+<span><span class="va">df1</span></span>
+<span><span class="co">#&gt; # A tibble: 576 × 10</span></span>
+<span><span class="co">#&gt;    indicator date       meeting  mean median    sd   min   max n_respondents</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Selic     2022-08-05 R5/2024  8.91    9   0.854   7    10              14</span></span>
+<span><span class="co">#&gt;  2 Selic     2022-08-05 R5/2024  8.91    9   0.854   7    10              14</span></span>
+<span><span class="co">#&gt;  3 Selic     2022-08-05 R4/2024  8.87    9   0.894   7    10.5            30</span></span>
+<span><span class="co">#&gt;  4 Selic     2022-08-05 R4/2024  9.12    9   0.987   7    12.2           107</span></span>
+<span><span class="co">#&gt;  5 Selic     2022-08-05 R3/2024  9.34    9.5 0.949   7.5  11              33</span></span>
+<span><span class="co">#&gt;  6 Selic     2022-08-05 R3/2024  9.52    9.5 0.991   7.5  12.5           112</span></span>
+<span><span class="co">#&gt;  7 Selic     2022-08-05 R2/2024  9.81   10   0.894   8    11.5            33</span></span>
+<span><span class="co">#&gt;  8 Selic     2022-08-05 R2/2024  9.97   10   0.980   7.5  12.8           112</span></span>
+<span><span class="co">#&gt;  9 Selic     2022-08-05 R1/2024 10.4    10.4 0.934   8.5  13              34</span></span>
+<span><span class="co">#&gt; 10 Selic     2022-08-05 R1/2024 10.4    10.5 0.968   8.5  13             113</span></span>
+<span><span class="co">#&gt; # … with 566 more rows, and 1 more variable: basis &lt;int&gt;</span></span>
+<span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_selic.html">get_selic</a></span><span class="op">(</span>indicator <span class="op">=</span> <span class="st">"Selic"</span>, first_date <span class="op">=</span> <span class="cn">NULL</span>, meeting <span class="op">=</span> <span class="st">"R1/2024"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Fetching [Selic] data from BCB-Olinda...</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Found 254 observations!</span></span>
+<span><span class="va">df2</span></span>
+<span><span class="co">#&gt; # A tibble: 254 × 10</span></span>
+<span><span class="co">#&gt;    indicator date       meeting  mean median    sd   min   max n_respondents</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Selic     2022-08-05 R1/2024  10.4   10.4 0.934  8.5   13              34</span></span>
+<span><span class="co">#&gt;  2 Selic     2022-08-05 R1/2024  10.4   10.5 0.968  8.5   13             113</span></span>
+<span><span class="co">#&gt;  3 Selic     2022-08-04 R1/2024  10.5   10.5 0.933  8.5   12.5            63</span></span>
+<span><span class="co">#&gt;  4 Selic     2022-08-04 R1/2024  10.4   10.5 0.954  8.5   13             113</span></span>
+<span><span class="co">#&gt;  5 Selic     2022-08-03 R1/2024  10.5   10.5 1.04   7.25  13              64</span></span>
+<span><span class="co">#&gt;  6 Selic     2022-08-03 R1/2024  10.4   10.5 0.990  7.25  13             113</span></span>
+<span><span class="co">#&gt;  7 Selic     2022-08-02 R1/2024  10.5   10.5 1.06   7.25  13              67</span></span>
+<span><span class="co">#&gt;  8 Selic     2022-08-02 R1/2024  10.4   10.5 0.990  7.25  13             113</span></span>
+<span><span class="co">#&gt;  9 Selic     2022-08-01 R1/2024  10.5   10.5 1.07   7.25  13              70</span></span>
+<span><span class="co">#&gt; 10 Selic     2022-08-01 R1/2024  10.4   10.5 0.989  7.25  13             113</span></span>
+<span><span class="co">#&gt; # … with 244 more rows, and 1 more variable: basis &lt;int&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
